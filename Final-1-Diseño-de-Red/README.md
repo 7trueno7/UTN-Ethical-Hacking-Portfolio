@@ -22,3 +22,19 @@ Se integraron varias medidas de seguridad en el diseño para crear una defensa e
 
 ### Conclusiones y Habilidades Demostradas
 Este proyecto demostró mi capacidad para diseñar, planificar e implementar una topología de red compleja desde una perspectiva de seguridad. Las habilidades clave demostradas incluyen el conocimiento de la arquitectura de red, el diseño de defensa en profundidad, la segmentación de red y la configuración de controles de seguridad de la capa 2 y 3.
+
+### Análisis y Solución de Problemas de Red
+
+Basado en el diseño de la topología, se identificaron y resolvieron tres problemas de configuración y diseño de red comunes.
+
+**1. Conflicto de Direccionamiento IP**
+* **Problema:** Dos redes (Alfa y Omega) con el mismo rango de direccionamiento IP, lo que causa conflictos e impide la comunicación a través del router.
+* **Solución:** Se asignó a la red Omega un rango de direcciones completamente diferente (por ejemplo, 192.168.2.0/24) y se configuró correctamente la puerta de enlace predeterminada en el router y los hosts.
+
+**2. Configuración Incorrecta de la Puerta de Enlace**
+* **Problema:** Los hosts no podían comunicarse con redes externas debido a que su puerta de enlace predeterminada no estaba configurada correctamente, lo que causaba la pérdida de paquetes.
+* **Solución:** Se verificó y se configuró en cada host la dirección IP de la interfaz del router que sirve como su punto de salida a redes externas.
+
+**3. Punto Único de Fallo**
+* **Problema:** El router que interconectaba las dos redes representaba un punto único de fallo. Si este dispositivo o su conexión fallara, la comunicación entre ambas redes se detendría por completo.
+* **Solución:** Se implementó un diseño de redundancia de primer salto (utilizando protocolos como HSRP o VRRP) con un segundo router en paralelo para asegurar la alta disponibilidad de la conexión.
