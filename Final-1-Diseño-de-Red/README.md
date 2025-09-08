@@ -1,40 +1,30 @@
-# Final 1: Diseño de Topología de Red Segura
+Experto Universitario en Hacking Ético
+Final número… 1
+ Mi Primer Topología de Cero
 
-### Descripción del Proyecto
-Este proyecto consistió en el diseño de una topología de red híbrida desde cero, con un enfoque primordial en la resiliencia, la escalabilidad y la seguridad. El objetivo fue crear una infraestructura que no solo permitiera la conectividad, sino que también implementara múltiples capas de defensa para proteger la red de amenazas.
+Análisis de la topología
 
-### Componentes y Metodología
-La topología se diseñó en Cisco Packet Tracer y cuenta con los siguientes elementos principales:
-- **Routers:** Dos routers Cisco 2911 para redundancia de conexión a internet.
-- **Firewall:** Un firewall dedicado como primera línea de defensa para el control y filtrado del tráfico.
-- **Switches de Capa 3:** Un switch principal (Cisco 3560) para enrutamiento interno y cinco switches secundarios para el acceso de los hosts.
-- **Hosts:** Cinco grupos de 16 PCs, segmentados lógicamente para optimizar la seguridad y el rendimiento.
+Dos routers conectados a los ISP diferentes: cada router necesita al menos un puerto WAN para conectarse a su respectivo ISP y un puerto LAN para conectarse al switch principal.
+Switch de capa 3 principal: este switch debe tener puertos suficientes para conectar los dos routers y los cinco switches de capa 3 adicionales. Esto significa que necesita al menos 7 puertos (2 para los routers y 5 para los switches secundarios).
+Cinco switches de capa 3 secundarios: cada uno debe conectar 16 PCs, lo que significa que deben tener al menos 16 puertos. Además, cada uno necesita un puerto adicional para conectarse al switch principal. En total cada switch requiere 17 puertos.
+Topología Seleccionada y Diagrama
+La topología de red diseñada es una topología híbrida, combina las ventajas de la topología en estrella extendida con la redundancia de una topología en malla parcial. Esta elección garantiza la resiliencia de la red, la escalabilidad y una gestión centralizada.
+Descripción de los Componentes de la Topología
+Routers (R1 y R2): Se han utilizado dos routers Cisco 2911. Cada uno está conectado a un proveedor de servicio (ISP) distinto, lo que proporciona redundancia de conexión a Internet. Si uno de los ISPs falla, el otro puede mantener la conectividad de la red.
+Firewall: se ha implementado un firewall entre los routers y el switch principal. Este dispositivo es fundamental para controlar, filtrar e inspeccionar todo el tráfico que entra y sale de la red, actuando como la primera línea de defensa.
+Switch de Capa 3 Principal: Este switch Cisco 3560 es el corazón de la red. Actúa como el punto central de agregación y se encarga del enrutamiento interno (inter-VLAN), facilitando la comunicación controlada entre los diferentes segmentos de la red.
+Switches de Acceso (SW-1 a SW-5): Cinco switches Cisco 3560 están conectados al switch principal. Cada uno de estos switches está dedicado a un grupo de 16 PCs. Para cumplir con la consigna, cada switch es de 24 puertos o más, lo que permite conectar las 16 PCs y el enlace al switch principal.
+Implementación de Seguridad: Dispositivos y Procesos
+Firewall: No solo filtra tráfico, sino que también puede realizar NAT y actuar como un sistema de Prevención de Intrusiones (IPS), detectando y bloqueando automáticamente ataques conocidos.
+Servidor de Autenticación: Se añade para centralizar el control de acceso a los dispositivos de red. Esto garantiza que solo los administradores autorizados puedan acceder a los routers y switches, y permite un registro detallado de las actividades de gestión.
+Segmentación de la Red: Se crearán VLANs lógicas, una para cada grupo de 16 PCs. La segmentación aísla el tráfico y evita que un problema de seguridad en una sección se propague al resto de la red.
+Listas de Control de Acceso: Se configurarán en el switch principal para filtrar el tráfico entre las VLANs, por ejemplo, una ACL puede impedir que las PCs accedan directamente a los recursos.
+Seguridad en los Puertos: En los switches de acceso, esta función se habilitará para limitar el acceso a dispositivos no autorizados. La seguridad del puerto vinculará la dirección MAC de cada PC a su puerto, deshabilitando el puerto si se detecta un dispositivo desconocido.
 
-### Estrategias de Seguridad Implementadas
-Se integraron varias medidas de seguridad en el diseño para crear una defensa en profundidad:
-- **Redundancia:** Dos routers conectados a distintos ISPs para asegurar la continuidad del servicio.
-- **Firewall:** Implementación de un dispositivo de seguridad que realiza filtrado de tráfico, NAT y puede actuar como un IPS.
-- **Control de Acceso Centralizado:** Uso de un servidor de autenticación para gestionar el acceso a los dispositivos de red.
-- **Segmentación de Red:** Creación de VLANs lógicas para aislar el tráfico y minimizar el impacto de un posible incidente de seguridad.
-- **Listas de Control de Acceso (ACLs):** Configuración de reglas para filtrar el tráfico entre las VLANs y evitar accesos no autorizados.
-- **Seguridad en Puertos:** Habilitación de la seguridad de puertos para vincular direcciones MAC a puertos específicos, previniendo la conexión de dispositivos no autorizados.
-- **Seguridad en Hosts:** Políticas de protección en las PCs, incluyendo antivirus, firewalls locales y gestión de parches.
-
-### Conclusiones y Habilidades Demostradas
-Este proyecto demostró mi capacidad para diseñar, planificar e implementar una topología de red compleja desde una perspectiva de seguridad. Las habilidades clave demostradas incluyen el conocimiento de la arquitectura de red, el diseño de defensa en profundidad, la segmentación de red y la configuración de controles de seguridad de la capa 2 y 3.
-
-### Análisis y Solución de Problemas de Red
-
-Basado en el diseño de la topología, se identificaron y resolvieron tres problemas de configuración y diseño de red comunes.
-
-**1. Conflicto de Direccionamiento IP**
-* **Problema:** Dos redes (Alfa y Omega) con el mismo rango de direccionamiento IP, lo que causa conflictos e impide la comunicación a través del router.
-* **Solución:** Se asignó a la red Omega un rango de direcciones completamente diferente (por ejemplo, 192.168.2.0/24) y se configuró correctamente la puerta de enlace predeterminada en el router y los hosts.
-
-**2. Configuración Incorrecta de la Puerta de Enlace**
-* **Problema:** Los hosts no podían comunicarse con redes externas debido a que su puerta de enlace predeterminada no estaba configurada correctamente, lo que causaba la pérdida de paquetes.
-* **Solución:** Se verificó y se configuró en cada host la dirección IP de la interfaz del router que sirve como su punto de salida a redes externas.
-
-**3. Punto Único de Fallo**
-* **Problema:** El router que interconectaba las dos redes representaba un punto único de fallo. Si este dispositivo o su conexión fallara, la comunicación entre ambas redes se detendría por completo.
-* **Solución:** Se implementó un diseño de redundancia de primer salto (utilizando protocolos como HSRP o VRRP) con un segundo router en paralelo para asegurar la alta disponibilidad de la conexión.
+Seguridad en los Hosts (PCs): La protección no termina en la red. Se implementarán políticas para asegurar que cada PC tenga:
+Un antivirus/antimalware actualizado.
+El firewall del sistema operativo activado.
+El sistema operativo y las aplicaciones al día con los últimos parches de seguridad.
+ 
+Conclusion
+La topología diseñada cumple con todos los requisitos del ejercicio. Al combinar la redundancia de dos ISP y un firewall de borde con la segmentación de la red y medidas de seguridad en los hosts, se crea una infraestructura robusta, escalable y, sobre todo, segura. Este diseño es una representación práctica de cómo se aplica el concepto de defensa en profundidad en una red real.
